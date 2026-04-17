@@ -268,17 +268,17 @@ else:
 
 ### 7.1 基础实验效果展示
 <div align="center">
-  <img src="gif/基础版本.gif" width="600">  
+  <img src="gif/basic.gif" width="600">  
 </div>
 
 ### 7.2 用半程向量计算的Blinn-Phong模型展示
 <div align="center">
-  <img src="gif/Blinn-Phong升级.gif" width="600">  
+  <img src="gif/Blinn-Phong.gif" width="600">  
 </div>
 
 ### 7.3 加入硬阴影的模型展示
 <div align="center">
-  <img src="gif/硬阴影升级.gif" width="600">  
+  <img src="gif/hard_shadow.gif" width="600">  
 </div>
 
 最终渲染效果（默认参数 $K_a=0.2,\ K_d=0.7,\ K_s=0.5,\ n=32$）呈现以下特征：
