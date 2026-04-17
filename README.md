@@ -105,7 +105,7 @@ $$I_s^{\text{Phong}} = K_s \cdot \max(0,\ \mathbf{R} \cdot \mathbf{V})^n$$
 
 其中 $\mathbf{R} = 2(\mathbf{N} \cdot \mathbf{L})\mathbf{N} - \mathbf{L}$。
 
-**Blinn-Phong 模型**由 James Blinn 提出，使用**半程向量（Halfway Vector）** $\mathbf{H}$ 代替反射向量参与点积计算：
+**Blinn-Phong 模型**由 James Blinn 提出，使用**半程向量** $\mathbf{H}$ 代替反射向量参与点积计算：
 
 $$\mathbf{H} = \frac{\mathbf{L} + \mathbf{V}}{|\mathbf{L} + \mathbf{V}|}$$
 
@@ -113,7 +113,7 @@ $$I_s^{\text{Blinn-Phong}} = K_s \cdot \max(0,\ \mathbf{N} \cdot \mathbf{H})^n$$
 
 **两者在大入射角时的视觉表现差异：**
 
-当光线以较大入射角（即 $\mathbf{L}$ 与 $\mathbf{N}$ 夹角接近 $90°$）照射物体表面时，Phong 模型的反射向量 $\mathbf{R}$ 会偏转至物体背面，此时若视线方向 $\mathbf{V}$ 与 $\mathbf{R}$ 夹角超过 $90°$，点积截断为 $0$，导致**高光区域边缘出现硬切断（Hard Cutoff）**，形成不自然的明暗突变，在大曲率表面上尤为明显。
+当光线以较大入射角（即 $\mathbf{L}$ 与 $\mathbf{N}$ 夹角接近 $90°$）照射物体表面时，Phong 模型的反射向量 $\mathbf{R}$ 会偏转至物体背面，此时若视线方向 $\mathbf{V}$ 与 $\mathbf{R}$ 夹角超过 $90°$，点积截断为 $0$，导致**高光区域边缘出现硬切断**，形成不自然的明暗突变，在大曲率表面上尤为明显。
 
 Blinn-Phong 模型中 $\mathbf{N} \cdot \mathbf{H}$ 在同等条件下不会出现如此剧烈的截断，高光衰减更为平滑连续，边缘过渡更加自然。此外，半程向量计算相比反射向量计算开销更低（无需 `reflect` 运算），在工程上也更为高效。
 
