@@ -11,7 +11,7 @@
 1. 在 Taichi Kernel 中以隐式方程定义红色球体与紫色圆锥两个几何体；
 2. 实现逐像素的光线投射与基于深度竞争（类 Z-buffer）的遮挡测试；
 3. 按照 Phong 光照公式分别计算环境光、漫反射、镜面高光并叠加输出；
-4. 使用 `ti.ui` 创建交互面板，支持 $K_a$、$K_d$、$K_s$、Shininess 四个参数的实时滑动调节。
+4. 使用 `ti.ui` 创建交互面板，支持 $K_a$ 、 $K_d$ 、 $K_s$ 、Shininess 四个参数的实时滑动调节。
 
 **选做任务**在基础任务之上进一步扩展：
 - **选做 1**：将 Phong 高光模型升级为 **Blinn-Phong** 模型（引入半程向量 $\mathbf{H}$），并分析二者在大入射角区域的视觉表现差异；
@@ -57,7 +57,7 @@ $$I = I_{\text{ambient}} + I_{\text{diffuse}} + I_{\text{specular}}$$
 | 漫反射 | $I_d = K_d \cdot \max(0, \mathbf{N} \cdot \mathbf{L}) \cdot C_{\text{light}} \cdot C_{\text{object}}$ | Lambert 漫散射，与入射角余弦成正比 |
 | 镜面高光 | $I_s = K_s \cdot \max(0, \mathbf{R} \cdot \mathbf{V})^n \cdot C_{\text{light}}$ | 光滑表面的定向反射高光 |
 
-其中 $\mathbf{N}$ 为表面单位法向量，$\mathbf{L}$ 为指向光源的单位向量，$\mathbf{V}$ 为指向摄像机的单位向量，$\mathbf{R} = \mathbf{L} - 2(\mathbf{L} \cdot \mathbf{N})\mathbf{N}$ 为理想镜面反射方向，$n$ 为高光指数（Shininess）。
+其中  $\mathbf{N}$  为表面单位法向量， $\mathbf{L}$  为指向光源的单位向量， $\mathbf{V}$  为指向摄像机的单位向量， $\mathbf{R} = \mathbf{L} - 2(\mathbf{L} \cdot \mathbf{N})\mathbf{N}$  为理想镜面反射方向， $n$  为高光指数（Shininess）。
 
 ### 3.2 场景构建
 
@@ -76,7 +76,7 @@ $$\text{ray} : \mathbf{p}(t) = \mathbf{o} + t \cdot \mathbf{d}, \quad t > 0$$
 
 分别与球体、圆锥、地面求解交点参数 $t$，取**最小正值** $t_{\min}$ 对应物体进行着色，实现正确的遮挡关系（等价于 Z-buffer 深度竞争）。
 
-**球体求交**（解析解）：将光线方程代入球面方程 $|\mathbf{p} - \mathbf{c}|^2 = r^2$，整理得二次方程 $t^2 + bt + c = 0$，取正根中的较小值。
+**球体求交**（解析解）：将光线方程代入球面方程 $|\mathbf{p} - \mathbf{c}|^2 = r^2$ ，整理得二次方程 $t^2 + bt + c = 0$ ，取正根中的较小值。
 
 **圆锥求交**：将光线变换至以顶点为原点的局部坐标系，利用圆锥隐式方程 $x^2 + z^2 = k^2 y^2$（$k = r/H$）构造二次方程，求解后验证交点的 $y$ 坐标是否落在 $[-H,\ 0]$ 高度范围内。
 
@@ -257,10 +257,10 @@ else:
 
 ### 6.3 注意事项与调试要点
 
-- **向量归一化**：参与光照点积的 $\mathbf{N}$、$\mathbf{L}$、$\mathbf{V}$、$\mathbf{H}$ 均须为单位向量，否则出现全黑或异常高光；
+- **向量归一化**：参与光照点积的 $\mathbf{N}$ 、$\mathbf{L}$ 、$\mathbf{V}$ 、$\mathbf{H}$ 均须为单位向量，否则出现全黑或异常高光；
 - **负值截断**：漫反射和高光中均使用 `ti.max(0.0, ...)` 截断负值，避免背光面出现负色值；
 - **颜色截幅**：最终写入 `pixels` 前使用 `ti.math.clamp(color, 0.0, 1.0)` 防止过曝发白；
-- **自交偏移**：暗影射线起点沿法线偏移 $\varepsilon$，消除自阴影噪点。
+- **自交偏移**：暗影射线起点沿法线偏移 $\varepsilon$ ，消除自阴影噪点。
 
 ---
 
