@@ -119,7 +119,7 @@ $$I_s^{\text{Blinn-Phong}} = K_s \cdot \max(0,\ \mathbf{N} \cdot \mathbf{H})^n$$
 
 Blinn-Phong 模型中 $\mathbf{N} \cdot \mathbf{H}$ 在同等条件下不会出现如此剧烈的截断，高光衰减更为平滑连续，边缘过渡更加自然。此外，半程向量计算相比反射向量计算开销更低（无需 `reflect` 运算），在工程上也更为高效。
 
-> **总结**：对于大入射角场景，Blinn-Phong的高光边缘更柔和，消除了Phong模型的"硬截边"伪影；两者在中小入射角下视觉差异较小，但Blinn-Phong整体高光叶形更宽，因此相同Shininess值下高光范围略大。
+**总结**：对于大入射角场景，Blinn-Phong的高光边缘更柔和，消除了Phong模型的"硬截边"伪影；两者在中小入射角下视觉差异较小，但Blinn-Phong整体高光叶形更宽，因此相同Shininess值下高光范围略大。
 
 ### 4.2 实现方法
 
